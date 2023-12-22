@@ -1,0 +1,26 @@
+
+/* 自定义样式以美化原生下拉选择框 */
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fff;
+    width: 200px;
+}
+
+/* 自定义下拉箭头图标 */
+select::-ms-expand {
+    display: none;
+}
+
+/* 样式选中项 */
+select option:checked {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+/* 样式鼠标悬停的选项 */
+select option:hover {
+    background-color: #f0f0f0;
+}
