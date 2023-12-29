@@ -1,97 +1,183 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
--->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Fit2Video</title>
-    <!-- Meta tag Keywords -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8" />
-    <meta name="keywords"
-        content="fit2video, fit to video, fit file, running data, video overlay" />
-    <!-- //Meta tag Keywords -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Fit 2 Video GUI</title>
+  <meta content="A online text similarity detector" name="description">
+  <meta content="text similarity, similarity detector, similarity detection, plagiarism detection" name="keywords">
 
-    <!-- google fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,700&display=swap" rel="stylesheet">
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/select.css">
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
-    <!-- //google fonts -->
+  <!-- Dark Mode Code -->
+  <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
 
-    <!--/Style-CSS -->
-    <link rel="stylesheet" href="assets/css/style.css" type="text/css" media="all" />
-    <!--//Style-CSS -->
-
-    <!--/fontAwesome-CSS -->
-    <link rel="stylesheet" href="assets/css/fontAwesome.css" type="text/css" media="all" />
-    <!--/fontAwesome-CSS -->
+  <script src="js/util.js"></script>
 </head>
 
 <body>
-    <div class="w3l-error-block">
+  <!-- contact -->
+  <section class="w3l-contact-5">
+    <div class="contact-top section-gap">
+      <div class="wrapper">
+        <div class="d-grid cont-main-top">
+          <!-- contact form -->
+          <div class="contacts12-main">
+            <h3 class="title-main-cont">Fit 2 Video WebPage GUI</h3>
+            <a href="index.html">English</a> | <a href="zh.html">中文</a>
+            <br><br>
+            <p class="sub-title-cont">This website act as an GUI for <a href="https://github.com/Haozhe-Li/fit2video" target="_blank">fit2video</a> project: simply turn your fit file into video overlays and add them into your own video! You can choose resolution, color and font by your preference. Click generate then you will get your own script for your video!</p>
+            <label for="width">Width:</label>
+            <input type="number" id="width" name="width" value="1920"><br><br>
 
-        <div class="page">
-            <div class="content">
-                <div class="logo">
-                    <a class="brand-logo" href="index.html">Fit 2 Video</a>
-                    <!-- if logo is image enable this   
-                <a class="brand-logo" href="#index.html">
-                    <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
-                </a> 
-            -->
-                </div>
-                <div class="w3l-error-grid">
-                    <h1>Easiest Way</h1>
-                    <h2>to add your workout data into videos</h2>
-                    <p>Go to github to view the repository, or use online generator to design your overlay with codeless experience.</p>
-                    <a href="https://github.com/Haozhe-Li/fit2video" class="home">GitHub</a>
-                    <a href="generator/index.html" class="home">Online Generator</a>
-                </div>
+            <label for="height">Height:</label>
+            <input type="number" id="height" name="height" value="1080"><br><br>
 
-                <div class="copy-right text-center">
-                    <p>© <span id="currentYear"> <a href="https://www.haozheli.com" target="_blank">Haozhe Li</a>. All rights reserved | Design by
-                        <a href="http://w3layouts.com/" target="_blank">W3layouts</a></p>
-                </div>
+            <label for="bgcolor">Background Color:</label>
+            <input type="text" id="bgcolor" name="bgcolor" value="black"><br><br>
+
+            <label for="fontcolor">Font Color:</label>
+            <input type="text" id="fontcolor" name="fontcolor" value="white"><br><br>
+
+            <label for="fontsize">Font Size:</label>
+            <input type="number" id="fontsize" name="fontsize" value="150"><br><br>
+
+            <label for="font">Font Type:</label>
+            <input type="text" id="font" name="font" value="Arial"><br><br>
+            <div class="text-center">
+              <button onclick="generateScript()" class="btn btn-contact" id="myButton">Generate your script</button>
             </div>
-            <img src="assets/images/bg.webp" class="img-responsive" alt="background image" />
+          </div>
+          <!-- //contact form -->
+          <!-- contact address -->
+          <div class="contact">
+            <div class="cont-subs">
+              <h1>Next step after you generate: <br><br></h1>
+              <div class="cont-add">
+                <h4>Get your fit file</h4>
+                <p>Download your fit file from your workout app: Garmin, COROS, Stryd, Strava, etc.</p>
+              </div>
+              <div class="cont-add">
+                <h4>Move and rename your fit file</h4>
+                <p>Move your fit file under the same directory with this script, and rename to "input.fit".</p>
+              </div>
+              <div class="cont-add">
+                <h4>Run script</h4>
+                <p>Go to your directory, and run your script with the following command</p>
+                <p>python fit_video_overlay.py</p>
+              </div>
+              <div class="cont-add">
+                <h4>Apply your overlay</h4>
+                <p>Drag and add your video overlay to your video editing app. Usually, black background can be filtered by using "lighten" or "filter" mixture.</p>
+              </div>
+            
+            </div>
+          </div>
+          <!-- //contact address -->
+          <p>&copy 2023 <a href="https://www.haozheli.com" target="_blank">Haozhe Li</a>. All rights reserved</p>
         </div>
-
-        <script src="assets/js/jquery-3.3.1.min.js"></script>
-        <script>
-            var lFollowX = 0,
-                lFollowY = 0,
-                x = 0,
-                y = 0,
-                friction = 1 / 30;
-
-            function animate() {
-                x += (lFollowX - x) * friction;
-                y += (lFollowY - y) * friction;
-
-                translate = 'translate(' + x + 'px, ' + y + 'px) scale(1.1)';
-
-                $('img').css({
-                    '-webit-transform': translate,
-                    '-moz-transform': translate,
-                    'transform': translate
-                });
-
-                window.requestAnimationFrame(animate);
-            }
-
-            $(window).on('mousemove click', function (e) {
-
-                var lMouseX = Math.max(-100, Math.min(100, $(window).width() / 2 - e.clientX));
-                var lMouseY = Math.max(-100, Math.min(100, $(window).height() / 2 - e.clientY));
-                lFollowX = (20 * lMouseX) / 100; // 100 : 12 = lMouxeX : lFollow
-                lFollowY = (10 * lMouseY) / 100;
-
-            });
-
-            animate();
-        </script>
+      </div>
+      <!-- map -->
+      <!-- //map -->
     </div>
+  </section>
+  <script>
+    function generateScript() {
+        var width = document.getElementById('width').value;
+        var height = document.getElementById('height').value;
+        var bgcolor = document.getElementById('bgcolor').value;
+        var fontcolor = document.getElementById('fontcolor').value;
+        var fontsize = document.getElementById('fontsize').value;
+        var font = document.getElementById('font').value;
+    
+        var scriptContent = `
+    import os
+    from fitparse import FitFile
+    from PIL import Image, ImageDraw, ImageFont
+    from moviepy.editor import ImageSequenceClip
+    import numpy as np
+    
+    # Important!!
+    # Remember to change this to your actual fit file path
+    fit_file_path = 'input.fit'
+    
+    # Parsing fit file
+    fitfile = FitFile(fit_file_path)
+    
+    records = list(fitfile.get_messages('record'))
+    
+    # Create frames here
+    frames = []
+    
+    # Important
+    
+    # Change your resolution of your video overlay
+    # Also for the color, size and font
+    width, height = ${width}, ${height}
+    background_color = '${bgcolor}'
+    font_color = '${fontcolor}'
+    font_size = ${fontsize}
+    font = ImageFont.truetype("${font}", font_size)
+    
+    for record in records:
+        distance = record.get_value('distance')
+        timestamp = record.get_value('timestamp')
+        speed = record.get_value('speed')
+        power = record.get_value('power')
+        heart_rate = record.get_value('heart_rate')
+    
+        pace = 1000 / speed if speed else 0
+        pace_min = int(pace // 60)
+        pace_sec = int(pace % 60)
+    
+        image = Image.new('RGB', (width, height), background_color)
+        draw = ImageDraw.Draw(image)
+    
+        text_lines = [
+            f"Distance: {distance:.2f} m",
+            f"Time: {timestamp.strftime('%H:%M:%S')}",
+            f"Pace: {pace_min:02d}:{pace_sec:02d} min/km",
+            f"Power: {power} W" if power else "功率: N/A",
+            f"Heart Rate: {heart_rate} bpm" if heart_rate else "心率: N/A",
+        ]
+    
+        for i, line in enumerate(text_lines):
+            draw.text((10, 10 + i * (font_size + 5)), line, font=font, fill=font_color)
+    
+        frames.append(image)
+    
+    
+    video_filename = 'output_overlay.mp4'
+    
+    # The default sampling rate is 1 per second
+    fps = 1
+    
+    frames_np = [np.array(frame) for frame in frames]
+    
+    clip = ImageSequenceClip(frames_np, fps=fps)
+    clip.write_videofile(video_filename, fps=fps)
+    
+    print(f'Export to {video_filename} already')
+        `.trim();
+    
+        var blob = new Blob([scriptContent], { type: "text/plain;charset=utf-8" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'fit_video_overlay.py';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+    </script>
 </body>
 
 </html>
