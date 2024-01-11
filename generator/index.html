@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Fit 2 Video 图形UI</title>
+  <title>Fit 2 Video GUI</title>
   <meta content="A online text similarity detector" name="description">
   <meta content="text similarity, similarity detector, similarity detection, plagiarism detection" name="keywords">
 
@@ -20,6 +20,7 @@
   <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
 
   <script src="js/util.js"></script>
+  <script src="js/main.js"></script>
 </head>
 
 <body>
@@ -30,58 +31,58 @@
         <div class="d-grid cont-main-top">
           <!-- contact form -->
           <div class="contacts12-main">
-            <h3 class="title-main-cont">Fit 2 Video网页图形用户界面</h3>
+            <h3 class="title-main-cont">Fit 2 Video WebPage GUI</h3>
             <a href="index.html">English</a> | <a href="zh.html">中文</a>
             <br><br>
-            <p class="sub-title-cont">该网站可作为 <a href="https://github.com/Haozhe-Li/fit2video" target="_blank">fit2video</a> 项目的图形用户界面：只需将您的 fit 文件转换为视频叠加，然后添加到您自己的视频中即可！您可以根据自己的喜好选择分辨率、颜色和字体。点击 "生成 "后，您就可以为自己的视频创建脚本了！</p>
-            <label for="width">宽度：</label>
+            <p class="sub-title-cont">This website act as an GUI for <a href="https://github.com/Haozhe-Li/fit2video" target="_blank">fit2video</a> project: simply turn your fit file into video overlays and add them into your own video! You can choose resolution, color and font by your preference. Click generate then you will get your own script for your video!</p>
+            <label for="width">Width:</label>
             <input type="number" id="width" name="width" value="1920"><br><br>
 
-            <label for="height">高度：</label>
+            <label for="height">Height:</label>
             <input type="number" id="height" name="height" value="1080"><br><br>
 
-            <label for="bgcolor">背景颜色：</label>
+            <label for="bgcolor">Background Color:</label>
             <input type="text" id="bgcolor" name="bgcolor" value="black"><br><br>
 
-            <label for="fontcolor">字体颜色：</label>
+            <label for="fontcolor">Font Color:</label>
             <input type="text" id="fontcolor" name="fontcolor" value="white"><br><br>
 
-            <label for="fontsize">字体大小：</label>
+            <label for="fontsize">Font Size:</label>
             <input type="number" id="fontsize" name="fontsize" value="150"><br><br>
 
-            <label for="font">字体：</label>
+            <label for="font">Font Type:</label>
             <input type="text" id="font" name="font" value="Arial"><br><br>
             <div class="text-center">
-              <button onclick="generateScript()" class="btn btn-contact" id="myButton">生成脚本</button>
+              <button onclick="generateScript()" class="btn btn-contact" id="myButton">Generate your script</button>
             </div>
           </div>
           <!-- //contact form -->
           <!-- contact address -->
           <div class="contact">
             <div class="cont-subs">
-              <h1>生成后的下一步：<br><br></h1>
+              <h1>Next step after you generate: <br><br></h1>
               <div class="cont-add">
-                <h4>获取fit文件</h4>
-                <p>从您的锻炼应用程序中下载合身文件：Garmin、COROS、Stryd、Strava 等。</p>
+                <h4>Get your fit file</h4>
+                <p>Download your fit file from your workout app: Garmin, COROS, Stryd, Strava, etc.</p>
               </div>
               <div class="cont-add">
-                <h4>移动并重命名fit文件</h4>
-                <p>将拟合文件移至与此脚本相同的目录下，并重命名为 "input.fit"。</p>
+                <h4>Move and rename your fit file</h4>
+                <p>Move your fit file under the same directory with this script, and rename to "input.fit".</p>
               </div>
               <div class="cont-add">
-                <h4>运行脚本</h4>
-                <p>进入你的目录，使用以下命令运行你的脚本</p>
+                <h4>Run script</h4>
+                <p>Go to your directory, and run your script with the following command</p>
                 <p>python fit_video_overlay.py</p>
               </div>
               <div class="cont-add">
-                <h4>应用视频图层</h4>
-                <p>将视频叠加拖动并添加到视频编辑应用中。通常情况下，可以使用 "变亮"或 "滤色"混合对黑色背景进行过滤。</p>
+                <h4>Apply your overlay</h4>
+                <p>Drag and add your video overlay to your video editing app. Usually, black background can be filtered by using "lighten" or "filter" mixture.</p>
               </div>
             
             </div>
           </div>
           <!-- //contact address -->
-          <p>&copy 2023 <a href="https://www.haozheli.com" target="_blank">Haozhe Li</a>. 保留所有权利。</p>
+          <p>&copy 2023 <a href="https://www.haozheli.com" target="_blank">Haozhe Li</a>. All rights reserved</p>
         </div>
       </div>
       <!-- map -->
@@ -98,6 +99,7 @@
         var font = document.getElementById('font').value;
     
         var scriptContent = `
+#python code here
 import os
 from fitparse import FitFile
 from PIL import Image, ImageDraw, ImageFont
@@ -165,7 +167,7 @@ clip = ImageSequenceClip(frames_np, fps=fps)
 clip.write_videofile(video_filename, fps=fps)
 
 print(f'Export to {video_filename} already')
-        `.trim();
+        `;
     
         var blob = new Blob([scriptContent], { type: "text/plain;charset=utf-8" });
         var url = URL.createObjectURL(blob);

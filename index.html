@@ -1,184 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Fit 2 Video GUI</title>
-  <meta content="A online text similarity detector" name="description">
-  <meta content="text similarity, similarity detector, similarity detection, plagiarism detection" name="keywords">
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/select.css">
-  <!-- Favicons -->
-  <link href="img/favicon.png" rel="icon">
-  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Dark Mode Code -->
-  <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
-
-  <script src="js/util.js"></script>
+  <title>FIT 2 VIDEO</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
 </head>
-
 <body>
-  <!-- contact -->
-  <section class="w3l-contact-5">
-    <div class="contact-top section-gap">
-      <div class="wrapper">
-        <div class="d-grid cont-main-top">
-          <!-- contact form -->
-          <div class="contacts12-main">
-            <h3 class="title-main-cont">Fit 2 Video WebPage GUI</h3>
-            <a href="index.html">English</a> | <a href="zh.html">中文</a>
-            <br><br>
-            <p class="sub-title-cont">This website act as an GUI for <a href="https://github.com/Haozhe-Li/fit2video" target="_blank">fit2video</a> project: simply turn your fit file into video overlays and add them into your own video! You can choose resolution, color and font by your preference. Click generate then you will get your own script for your video!</p>
-            <label for="width">Width:</label>
-            <input type="number" id="width" name="width" value="1920"><br><br>
-
-            <label for="height">Height:</label>
-            <input type="number" id="height" name="height" value="1080"><br><br>
-
-            <label for="bgcolor">Background Color:</label>
-            <input type="text" id="bgcolor" name="bgcolor" value="black"><br><br>
-
-            <label for="fontcolor">Font Color:</label>
-            <input type="text" id="fontcolor" name="fontcolor" value="white"><br><br>
-
-            <label for="fontsize">Font Size:</label>
-            <input type="number" id="fontsize" name="fontsize" value="150"><br><br>
-
-            <label for="font">Font Type:</label>
-            <input type="text" id="font" name="font" value="Arial"><br><br>
-            <div class="text-center">
-              <button onclick="generateScript()" class="btn btn-contact" id="myButton">Generate your script</button>
-            </div>
-          </div>
-          <!-- //contact form -->
-          <!-- contact address -->
-          <div class="contact">
-            <div class="cont-subs">
-              <h1>Next step after you generate: <br><br></h1>
-              <div class="cont-add">
-                <h4>Get your fit file</h4>
-                <p>Download your fit file from your workout app: Garmin, COROS, Stryd, Strava, etc.</p>
-              </div>
-              <div class="cont-add">
-                <h4>Move and rename your fit file</h4>
-                <p>Move your fit file under the same directory with this script, and rename to "input.fit".</p>
-              </div>
-              <div class="cont-add">
-                <h4>Run script</h4>
-                <p>Go to your directory, and run your script with the following command</p>
-                <p>python fit_video_overlay.py</p>
-              </div>
-              <div class="cont-add">
-                <h4>Apply your overlay</h4>
-                <p>Drag and add your video overlay to your video editing app. Usually, black background can be filtered by using "lighten" or "filter" mixture.</p>
-              </div>
-            
-            </div>
-          </div>
-          <!-- //contact address -->
-          <p>&copy 2023 <a href="https://www.haozheli.com" target="_blank">Haozhe Li</a>. All rights reserved</p>
-        </div>
-      </div>
-      <!-- map -->
-      <!-- //map -->
-    </div>
-  </section>
+  <nav>
+    <a href="#/">English</a>
+    <a href="#/zh">中文</a>
+  </nav>
+  <div id="app">Loading...</div>
   <script>
-    function generateScript() {
-        var width = document.getElementById('width').value;
-        var height = document.getElementById('height').value;
-        var bgcolor = document.getElementById('bgcolor').value;
-        var fontcolor = document.getElementById('fontcolor').value;
-        var fontsize = document.getElementById('fontsize').value;
-        var font = document.getElementById('font').value;
-    
-        var scriptContent = `
-#python code here
-import os
-from fitparse import FitFile
-from PIL import Image, ImageDraw, ImageFont
-from moviepy.editor import ImageSequenceClip
-import numpy as np
-
-# Important!!
-# Remember to change this to your actual fit file path
-fit_file_path = 'input.fit'
-
-# Parsing fit file
-fitfile = FitFile(fit_file_path)
-
-records = list(fitfile.get_messages('record'))
-
-# Create frames here
-frames = []
-
-# Important
-
-# Change your resolution of your video overlay
-# Also for the color, size and font
-width, height = ${width}, ${height}
-background_color = '${bgcolor}'
-font_color = '${fontcolor}'
-font_size = ${fontsize}
-font = ImageFont.truetype("${font}", font_size)
-
-for record in records:
-    distance = record.get_value('distance')
-    timestamp = record.get_value('timestamp')
-    speed = record.get_value('speed')
-    power = record.get_value('power')
-    heart_rate = record.get_value('heart_rate')
-
-    pace = 1000 / speed if speed else 0
-    pace_min = int(pace // 60)
-    pace_sec = int(pace % 60)
-
-    image = Image.new('RGB', (width, height), background_color)
-    draw = ImageDraw.Draw(image)
-
-    text_lines = [
-        f"Distance: {distance:.2f} m",
-        f"Time: {timestamp.strftime('%H:%M:%S')}",
-        f"Pace: {pace_min:02d}:{pace_sec:02d} min/km",
-        f"Power: {power} W" if power else "功率: N/A",
-        f"Heart Rate: {heart_rate} bpm" if heart_rate else "心率: N/A",
-    ]
-
-    for i, line in enumerate(text_lines):
-        draw.text((10, 10 + i * (font_size + 5)), line, font=font, fill=font_color)
-
-    frames.append(image)
-
-
-video_filename = 'output_overlay.mp4'
-
-# The default sampling rate is 1 per second
-fps = 1
-
-frames_np = [np.array(frame) for frame in frames]
-
-clip = ImageSequenceClip(frames_np, fps=fps)
-clip.write_videofile(video_filename, fps=fps)
-
-print(f'Export to {video_filename} already')
-        `;
-    
-        var blob = new Blob([scriptContent], { type: "text/plain;charset=utf-8" });
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        a.href = url;
-        a.download = 'fit_video_overlay.py';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+    window.$docsify = {
+      name: 'FIT2VIDEO',
+      repo: ''
     }
-    </script>
+  </script>
+  <!-- Docsify v4 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
 </body>
-
 </html>
